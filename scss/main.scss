@@ -1,72 +1,9 @@
-$light-color: #fff;
-$dark-color: #111;
-$font-satck: "Dosis", sans-serif;
-$primary-font: "Open Sans", sans-serif;
-$secondary-font: "Montserrat", sans-serif;
-$width: 1100px;
-$amount: 30%;
+@import "variable";
+@import "component";
+@import "media";
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  transition: all 0.5s ease-in-out;
-}
-body {
-  font-family: $font-satck;
-  line-height: 1.4;
-  color: $light-color;
-  min-height: 100vh;
-  background: darken($dark-color, $amount);
-  overflow-x: hidden;
-}
-img {
-  width: 100%;
-}
-li {
-  list-style: none;
-}
-%flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-%btn {
-  display: inline-block;
-  border: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  border-radius: 50px;
-}
-%input {
-  width: 100%;
-  padding: 1rem;
-  border-radius: 50px;
-  border: none;
-  outline: none;
-}
-%movie {
-  position: absolute;
-  padding-left: 3rem;
-  bottom: -15%;
-  .trending-card {
-    background: inherit;
-    .trending-list {
-      overflow: hidden;
-      display: flex;
-      gap: 1.5rem;
-    }
-  }
-  h3 {
-    font-family: $primary-font;
-    padding-bottom: 1rem;
-  }
-  img {
-    display: inline-block;
-    width: 150px;
-    border-radius: 1rem;
-    object-fit: contain;
-  }
+.hidden {
+  display: none;
 }
 
 #main--header {
@@ -101,16 +38,6 @@ li {
         @extend %flex;
         gap: 1rem;
         list-style: none;
-        a {
-          text-decoration: none;
-          color: $light-color;
-          font-size: 1.3rem;
-
-          &:hover {
-            color: darken($light-color, $amount);
-            transition: background 0.5s ease-in-out;
-          }
-        }
       }
     }
     .icons {
@@ -121,7 +48,6 @@ li {
   }
 
   .overlay {
-    display: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -132,7 +58,7 @@ li {
       background: $dark-color;
       padding: 3rem;
       margin: 6rem 5rem;
-      border-radius: 50px;
+      border-radius: 10px;
       .search-input {
         @extend %input;
       }
@@ -192,11 +118,70 @@ li {
     }
   }
 }
-.trending-movie {
-  display: none;
-  @extend %movie;
+
+.bookmarks-fetaures {
+  position: absolute;
+  top: 10%;
+  right: 0;
+  background: lighten($dark-color, 5%);
+  width: 400px;
+  height: 300px;
+  padding: 1rem;
+  font-family: $secondary-font;
+  .preview-bookmarks {
+    @extend %preview;
+  }
+  .bookmarks-img {
+    @extend %flex;
+    gap: 1.3rem;
+  }
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+  }
 }
-.most--watched {
-  display: none;
-  @extend %movie;
+
+.side-navbar {
+  @extend %flex;
+  justify-content: space-between;
+  .side-nav {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.891);
+    width: 300px;
+    height: 100vh;
+    right: 0;
+    top: 0;
+    padding: 2rem;
+    // transform: translateX(1100px);
+    // transition: transform 0.5s ease-in-out;
+  }
+  .nav-list {
+    padding-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 2rem;
+    a {
+      font-size: 1.3rem;
+      color: $light-color;
+    }
+  }
+  .side-bookmarks {
+    font-size: 1rem;
+    font-family: $secondary-font;
+  }
+  .sidebar-preview-bookmarks {
+    @extend %preview;
+    margin-top: 1rem;
+  }
+  .bookmarks-img {
+    @extend %flex;
+    gap: 1.3rem;
+  }
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+  }
 }

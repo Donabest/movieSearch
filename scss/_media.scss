@@ -1,0 +1,36 @@
+@media screen and (max-width: 768px) {
+  #main--header {
+    .main-nav {
+      display: none;
+    }
+
+    .overlay {
+      .input-search {
+        padding: 1rem !important;
+        margin: 6rem 3rem !important;
+
+        input {
+          padding: 0.5rem !important;
+        }
+      }
+    }
+    .side-navbar {
+      display: flex;
+    }
+    .header--section {
+      padding-top: 150px !important;
+      width: 90% !important;
+      padding-left: 0rem !important;
+      h2 {
+        font-family: $primary-font !important;
+        padding-bottom: 0.6rem !important;
+        font-size: 2rem !important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 415px) {
+  #main-header {
+  }
+}
