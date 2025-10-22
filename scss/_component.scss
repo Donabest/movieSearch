@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "variable" as v;
+
 * {
   margin: 0;
   padding: 0;
@@ -5,10 +8,9 @@
 }
 
 body {
-  font-family: $font-satck;
+  font-family: v.$font-satck;
   line-height: 1.4;
-  color: $light-color;
-  overflow: hidden;
+  color: v.$light-color;
 }
 img {
   width: 100%;
@@ -38,18 +40,17 @@ li {
 
 a {
   text-decoration: none;
-  color: $light-color;
+  color: v.$light-color;
   font-size: 1.3rem;
 
   &:hover {
-    color: darken($light-color, $amount);
+    color: color.adjust(v.$dark-color, $lightness: -30%);
     transition: color 0.5s ease-in-out;
   }
 }
 i {
   cursor: pointer;
 }
-
 %preview {
   @extend %flex;
   cursor: pointer;
@@ -57,10 +58,25 @@ i {
   padding: 0.2rem 1rem;
   gap: 2rem;
   &:hover {
-    background: lighten($dark-color, 10%);
+    background: color.adjust(v.$dark-color, $lightness: 10%);
     border-radius: 4px;
   }
 }
+%overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.377);
+}
 .active {
   transform: translateX(0) !important;
+}
+.current {
+  color: color.adjust(v.$light-color, $lightness: -30%);
+}
+.toggle {
+  opacity: 0;
+  pointer-events: none;
 }

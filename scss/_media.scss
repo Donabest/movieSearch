@@ -1,5 +1,9 @@
 @media screen and (max-width: 768px) {
   #main--header {
+    body {
+      max-width: 100% !important;
+      max-height: 100% !important;
+    }
     .main-nav {
       display: none;
     }
@@ -18,19 +22,241 @@
       display: flex;
     }
     .header--section {
-      padding-top: 150px !important;
+      margin-top: 2rem !important;
       width: 90% !important;
       padding-left: 0rem !important;
       h2 {
-        font-family: $primary-font !important;
         padding-bottom: 0.6rem !important;
         font-size: 2rem !important;
       }
     }
   }
+
+  #Trending {
+    h3 {
+      margin-left: 1rem !important;
+      margin-bottom: 0.5rem !important;
+    }
+    img {
+      height: 12rem;
+      width: 8rem !important;
+    }
+    .trending-card {
+      max-width: 600px !important;
+    }
+  }
+
+  .modal {
+    &--card {
+      padding-bottom: 6rem !important;
+      h4 {
+        padding: 0.5rem !important;
+      }
+    }
+    &--catagories {
+      span {
+        margin-bottom: 0.5rem !important;
+      }
+    }
+    &--detail {
+      .movie--bg {
+        object-fit: contain;
+        height: 345px !important;
+        filter: brightness(0.5);
+      }
+    }
+    &--overview {
+      max-width: 462px !important;
+      margin: 0.7rem 1.3rem !important;
+    }
+  }
 }
 
-@media screen and (max-width: 415px) {
-  #main-header {
+@media screen and (max-width: 500px) {
+  #main--header {
+    .header--section {
+      margin-top: 1rem;
+      padding-left: 0.6rem !important;
+
+      p {
+        padding-bottom: 0.5rem !important;
+        font-size: 0.6rem;
+        padding-left: 0.2rem;
+      }
+    }
+  }
+  #Trending {
+    .trending-card {
+      max-width: 400px !important;
+      margin: 0 0.5rem !important;
+    }
+  }
+}
+
+@media (min-width: 200px) and (max-width: 399px) {
+  .logo {
+    font-size: 1.3rem;
+  }
+  #main--header {
+    .header--section {
+      margin-top: -3rem !important;
+      padding-left: 0.6rem !important;
+      .section-content {
+        h2 {
+          padding-bottom: 0.2rem !important;
+          font-size: 1.4rem !important;
+        }
+      }
+      p {
+        padding-bottom: 0.5rem !important;
+        font-size: 0.6rem;
+        padding-left: 0.2rem;
+      }
+    }
+    .section-btn {
+      .btn {
+        padding: 0.7rem 1rem !important;
+        font-size: 0.5rem !important;
+      }
+    }
+  }
+
+  .modal {
+    &--card {
+      max-width: 100% !important;
+      padding-bottom: 3rem !important;
+      h4 {
+        margin-top: -2rem;
+        font-size: 1.3rem !important;
+      }
+    }
+
+    &--catagories {
+      gap: 0.4rem !important;
+      span {
+        padding: 0 0.5rem !important;
+      }
+    }
+
+    &--overview {
+      height: 90px !important;
+    }
+
+    &--detail {
+      .movie--bg {
+        object-fit: contain;
+        height: 300px !important;
+        filter: brightness(0.5);
+      }
+    }
+
+    img {
+      height: 90% !important;
+    }
+  }
+}
+
+// @media screen and (max-width: 800px) {
+//   body {
+//     max-width: 100% !important;
+//     max-height: 100% !important;
+//   }
+//   #main--header {
+//     .main-nav {
+//       display: none;
+//     }
+
+//     .overlay {
+//       .input-search {
+//         padding: 1rem !important;
+//         margin: 6rem 3rem !important;
+
+//         input {
+//           padding: 0.5rem !important;
+//         }
+//       }
+//     }
+//     .side-navbar {
+//       display: flex;
+//     }
+//     .header--section {
+//       padding-top: 150px !important;
+//       width: 90% !important;
+//       padding-left: 0rem !important;
+//       h2 {
+//         padding-bottom: 0.6rem !important;
+//         font-size: 2rem !important;
+//       }
+//     }
+//   }
+
+//   #Trending {
+//     h3 {
+//       margin-left: 1rem !important;
+//       margin-bottom: 0.5rem !important;
+//     }
+//     img {
+//       height: 12rem;
+//       width: 8rem !important;
+//     }
+//     .trending-card {
+//       max-width: 750px !important;
+//     }
+//   }
+
+//   .modal {
+//     &--card {
+//       padding-bottom: 6rem !important;
+//       h4 {
+//         padding: 0.5rem !important;
+//       }
+//     }
+//     &--catagories {
+//       span {
+//         margin-bottom: 0.5rem !important;
+//       }
+//     }
+//     &--detail {
+//       .movie--bg {
+//         object-fit: contain;
+//         height: 345px !important;
+//         filter: brightness(0.5);
+//       }
+//     }
+//     &--overview {
+//       max-width: 462px !important;
+//       margin: 0.7rem 1.3rem !important;
+//     }
+//   }
+// }
+
+@media screen and (max-width: 900px) {
+  .header--section {
+    width: 90% !important;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .header--section {
+    margin-top: 8rem;
+    width: 90% !important;
+  }
+}
+// @media screen and (max-width: 600px) {
+//   .header--section {
+//     margin-top: -3rem;
+//   }
+// }
+// @media screen and (max-width: 1050px) {
+//   .header--section {
+//     padding-top: 8rem !important;
+//   }
+// }
+
+@media screen and (max-width: 1300px) {
+  #Trending {
+    h3 {
+      margin: 0 1rem !important;
+    }
   }
 }
