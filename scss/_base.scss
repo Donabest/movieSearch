@@ -50,6 +50,8 @@
   .search-overlay {
     @extend %overlay !optional;
     transform: translateY(-250%);
+    z-index: 9999 !important;
+    pointer-events: none;
     transition: transform 0.4s ease-in-out;
     height: 100vh;
     .input-search {
@@ -147,6 +149,7 @@
     height: 100vh;
     right: 0;
     top: 0;
+    z-index: 1000;
     padding: 2rem;
     transform: translateX(1100px);
     transition: transform 0.5s ease-in-out;

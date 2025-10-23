@@ -57,7 +57,7 @@ document.addEventListener('click', e => {
   if (
     bookmarkDisplay.classList.contains('active') &&
     !e.target.closest('.bookmarks-fetaures') &&
-    !e.target.closest('.bookmarks-icon')
+    !e.target.closest('.bookmarks--icon')
   ) {
     bookmarkIcontoggle();
   }

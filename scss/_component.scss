@@ -71,6 +71,7 @@ i {
   background: rgba(0, 0, 0, 0.377);
 }
 .active {
+  pointer-events: auto;
   transform: translateX(0) !important;
   transition: transform 0.5s ease-in-out !important;
 }
