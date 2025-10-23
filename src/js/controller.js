@@ -45,7 +45,23 @@ document.addEventListener('keydown', e => {
     bookmarkIcontoggle();
   }
 });
+document.addEventListener('click', e => {
+  if (
+    searchDisplay.classList.contains('active') &&
+    !e.target.closest('.search-overlay') &&
+    !e.target.closest('.search-icon')
+  ) {
+    searchInputtoggle();
+  }
 
+  if (
+    bookmarkDisplay.classList.contains('active') &&
+    !e.target.closest('.bookmarks-fetaures') &&
+    !e.target.closest('.bookmarks-icon')
+  ) {
+    bookmarkIcontoggle();
+  }
+});
 const loadTrendingMovie = async function () {
   const res = await fetch(
     `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`
