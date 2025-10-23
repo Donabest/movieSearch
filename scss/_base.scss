@@ -1,7 +1,6 @@
-@use "sass:color";
-@use "variable" as v;
-@use "component" as c;
-
+@use 'sass:color';
+@use 'variable' as v;
+@use 'component' as c;
 .hidden {
   display: none;
 }
@@ -17,7 +16,7 @@
       rgba(0, 0, 0, 0.4) 60%,
       rgba(0, 0, 0, 0.95) 100%
     ),
-    url("/src/img/bg.jpeg");
+    url('/src/img/bg.jpeg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -29,7 +28,6 @@
     justify-content: space-between !important;
     .nav {
       @extend %flex !optional;
-      //: 1;
       gap: 1rem;
       h1 {
         font-size: 1.3rem;
@@ -44,13 +42,15 @@
     }
     .icons {
       @extend %flex !optional;
-      //: 999;
       gap: 1rem;
+      z-index: 100;
     }
   }
 
-  .overlay {
+  .search-overlay {
     @extend %overlay !optional;
+    transform: translateY(-250%);
+    transition: transform 0.4s ease-in-out;
     .input-search {
       background: v.$dark-color;
       padding: 3rem;
@@ -68,7 +68,6 @@
     width: 50%;
     display: grid;
     .section-content {
-      //: 9999;
       h2 {
         font-family: v.$secondary-font;
         padding-bottom: 1.2rem;
@@ -108,26 +107,32 @@
   }
 }
 
-.bookmarks-fetaures {
-  position: absolute;
-  top: 10%;
-  right: 0;
-  background: color.adjust(v.$dark-color, $lightness: 5%);
-  width: 400px;
-  height: 300px;
-  padding: 1rem;
-  font-family: v.$secondary-font;
-  .preview-bookmarks {
-    @extend %preview !optional;
-  }
-  .bookmarks-img {
-    @extend %flex !optional;
-    gap: 1.3rem;
-  }
-  img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
+.bookmark-overlay {
+  @extend %overlay !optional;
+  transform: translateX(1100px);
+  transition: transform 0.5s ease-in-out;
+  .bookmarks-fetaures {
+    position: fixed;
+    top: 10%;
+    right: 0;
+    background: color.adjust(v.$dark-color, $lightness: 5%);
+    width: 400px;
+    height: 300px;
+    padding: 1rem;
+    font-family: v.$secondary-font;
+
+    .preview-bookmarks {
+      @extend %preview !optional;
+    }
+    .bookmarks-img {
+      @extend %flex !optional;
+      gap: 1.3rem;
+    }
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50px;
+    }
   }
 }
 
@@ -135,15 +140,15 @@
   @extend %flex !optional;
   justify-content: space-between;
   .side-nav {
-    position: absolute;
+    position: fixed;
     background: rgba(0, 0, 0, 0.891);
     width: 300px;
     height: 100vh;
     right: 0;
     top: 0;
     padding: 2rem;
-    // transform: translateX(1100px);
-    // transition: transform 0.5s ease-in-out;
+    transform: translateX(1100px);
+    transition: transform 0.5s ease-in-out;
   }
   .nav-list {
     padding-top: 5rem;
@@ -173,6 +178,8 @@
     height: 50px;
     border-radius: 50px;
   }
+
+  overflow: hidden;
 }
 
 #Trending {
@@ -191,15 +198,16 @@
       transition: transform 0.5s ease-in-out;
     }
   }
-  .trending-card {
+  .swiper {
+    position: relative;
     padding: 1rem;
     margin: auto;
     max-width: 1300px;
     overflow: hidden;
   }
-  ul {
-    @extend %flex !optional;
-    gap: 1rem;
+  .swiper-wrapper {
+    display: flex;
+    gap: 1em;
   }
 }
 
@@ -231,7 +239,7 @@
     h4 {
       @extend %flex !optional;
       font-size: 2rem;
-      font-family: "Bitcount Grid Single", sans-serif;
+      font-family: 'Bitcount Grid Single', sans-serif;
       padding: 1rem;
       border-radius: 5px;
     }

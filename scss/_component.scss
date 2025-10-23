@@ -1,5 +1,5 @@
-@use "sass:color";
-@use "variable" as v;
+@use 'sass:color';
+@use 'variable' as v;
 
 * {
   margin: 0;
@@ -63,7 +63,7 @@ i {
   }
 }
 %overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100%;
@@ -72,6 +72,7 @@ i {
 }
 .active {
   transform: translateX(0) !important;
+  transition: transform 0.5s ease-in-out !important;
 }
 .current {
   color: color.adjust(v.$light-color, $lightness: -30%);

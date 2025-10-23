@@ -8,7 +8,7 @@
       display: none;
     }
 
-    .overlay {
+    .serach-overlay {
       .input-search {
         padding: 1rem !important;
         margin: 6rem 3rem !important;
@@ -247,11 +247,11 @@
 //     margin-top: -3rem;
 //   }
 // }
-// @media screen and (max-width: 1050px) {
-//   .header--section {
-//     padding-top: 8rem !important;
-//   }
-// }
+@media screen and (max-width: 1050px) {
+  .header--section {
+    margin-top: 8rem !important;
+  }
+}
 
 @media screen and (max-width: 1300px) {
   #Trending {
