@@ -8,13 +8,14 @@
       display: none;
     }
 
-    .serach-overlay {
+    .search-overlay {
       .input-search {
         padding: 1rem !important;
         margin: 6rem 3rem !important;
 
         input {
           padding: 0.5rem !important;
+          font-size: 16px;
         }
       }
     }
@@ -22,7 +23,7 @@
       display: flex;
     }
     .header--section {
-      margin-top: 2rem !important;
+      // margin-top: -3rem !important;
       width: 90% !important;
       padding-left: 0rem !important;
       h2 {
@@ -41,8 +42,11 @@
       height: 12rem;
       width: 8rem !important;
     }
-    .trending-card {
+    .swiper {
       max-width: 600px !important;
+    }
+    .swiper-wrapper {
+      gap: 4rem !important;
     }
   }
 
@@ -75,7 +79,7 @@
 @media screen and (max-width: 500px) {
   #main--header {
     .header--section {
-      margin-top: 1rem;
+      // margin-top: 1rem;
       padding-left: 0.6rem !important;
 
       p {
@@ -86,9 +90,12 @@
     }
   }
   #Trending {
-    .trending-card {
+    .swiper {
       max-width: 400px !important;
-      margin: 0 0.5rem !important;
+      margin: 0 1rem !important;
+    }
+    .swiper-wrapper {
+      gap: 6rem !important;
     }
   }
 }
@@ -99,7 +106,7 @@
   }
   #main--header {
     .header--section {
-      margin-top: -3rem !important;
+      // margin-top: -3rem !important;
       padding-left: 0.6rem !important;
       .section-content {
         h2 {
@@ -156,107 +163,38 @@
   }
 }
 
-// @media screen and (max-width: 800px) {
-//   body {
-//     max-width: 100% !important;
-//     max-height: 100% !important;
-//   }
-//   #main--header {
-//     .main-nav {
-//       display: none;
-//     }
-
-//     .overlay {
-//       .input-search {
-//         padding: 1rem !important;
-//         margin: 6rem 3rem !important;
-
-//         input {
-//           padding: 0.5rem !important;
-//         }
-//       }
-//     }
-//     .side-navbar {
-//       display: flex;
-//     }
-//     .header--section {
-//       padding-top: 150px !important;
-//       width: 90% !important;
-//       padding-left: 0rem !important;
-//       h2 {
-//         padding-bottom: 0.6rem !important;
-//         font-size: 2rem !important;
-//       }
-//     }
-//   }
-
-//   #Trending {
-//     h3 {
-//       margin-left: 1rem !important;
-//       margin-bottom: 0.5rem !important;
-//     }
-//     img {
-//       height: 12rem;
-//       width: 8rem !important;
-//     }
-//     .trending-card {
-//       max-width: 750px !important;
-//     }
-//   }
-
-//   .modal {
-//     &--card {
-//       padding-bottom: 6rem !important;
-//       h4 {
-//         padding: 0.5rem !important;
-//       }
-//     }
-//     &--catagories {
-//       span {
-//         margin-bottom: 0.5rem !important;
-//       }
-//     }
-//     &--detail {
-//       .movie--bg {
-//         object-fit: contain;
-//         height: 345px !important;
-//         filter: brightness(0.5);
-//       }
-//     }
-//     &--overview {
-//       max-width: 462px !important;
-//       margin: 0.7rem 1.3rem !important;
-//     }
-//   }
-// }
-
 @media screen and (max-width: 900px) {
   .header--section {
     width: 90% !important;
+  }
+  .swiper-wrapper {
+    gap: 4rem !important;
   }
 }
 
 @media screen and (max-width: 1100px) {
   .header--section {
-    margin-top: 8rem;
+    // padding-top: 3rem !important;
     width: 90% !important;
   }
+  .swiper {
+    margin: 0 2rem !important;
+  }
+  .swiper-wrapper {
+    gap: 4rem !important;
+  }
 }
-// @media screen and (max-width: 600px) {
-//   .header--section {
-//     margin-top: -3rem;
-//   }
-// }
+
 @media screen and (max-width: 1050px) {
   .header--section {
-    margin-top: 8rem !important;
+    // margin-top: 8rem !important;
   }
 }
 
 @media screen and (max-width: 1300px) {
   #Trending {
     h3 {
-      margin: 0 1rem !important;
+      // margin: 0 1rem !important;
     }
   }
 }

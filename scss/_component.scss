@@ -36,6 +36,7 @@ li {
   border-radius: 50px;
   border: none;
   outline: none;
+  font-size: 16px;
 }
 
 a {
@@ -69,6 +70,7 @@ i {
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.377);
+  backdrop-filter: blur(10px);
 }
 .active {
   pointer-events: auto;
@@ -81,4 +83,15 @@ i {
 .toggle {
   opacity: 0;
   pointer-events: none;
+}
+.spinner {
+  @extend %flex;
+  font-size: 3rem;
+  margin-top: 50%;
+  animation: spinner 1.5s infinite ease-in-out;
+}
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
 }
