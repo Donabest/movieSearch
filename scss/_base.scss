@@ -4,6 +4,7 @@
 .hidden {
   display: none;
 }
+
 .logo {
   color: color.adjust(v.$light-color, $lightness: -20%);
 }
@@ -83,7 +84,7 @@
 .header--section {
   padding-top: 10%;
   padding-left: 2rem;
-  width: 50%;
+  width: 70%;
   display: grid;
   .section-content {
     h2 {
@@ -106,9 +107,19 @@
         @extend %btn;
       }
 
-      .btn--watch:hover {
-        background-color: color.adjust(v.$light-color, $lightness: 30%);
-        transition: background 0.5s ease-in-out;
+      .btn--watch {
+        display: none;
+        &.show {
+          display: block;
+        }
+        a {
+          font-size: 0.8rem;
+          color: v.$dark-color;
+        }
+        &:hover {
+          background-color: color.adjust(v.$light-color, $lightness: -30%);
+          transition: background 0.5s ease-in-out;
+        }
       }
 
       .btn-details {
@@ -293,7 +304,7 @@
     height: 500px;
     .movie--bg {
       object-fit: contain;
-      height: 355px;
+      height: 366px;
       filter: brightness(0.5);
     }
     .spinner {
