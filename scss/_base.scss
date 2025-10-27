@@ -103,6 +103,7 @@
       padding-top: 1rem;
       justify-content: flex-start !important;
       gap: 1rem;
+
       .btn {
         @extend %btn;
       }
@@ -349,6 +350,9 @@
     }
   }
 
+  &-btn-section {
+    margin-left: 1rem;
+  }
   &--btn-trailer {
     @extend %btn !optional;
     margin: 1rem;
