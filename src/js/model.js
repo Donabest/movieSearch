@@ -4,6 +4,7 @@ export const state = {
   search: {},
   video: {},
   details: {},
+  bookmarks: [],
 };
 
 export async function getMovieData(query = 'batman') {
@@ -29,8 +30,36 @@ export async function getMovieDetails(id, type = 'movie') {
     ]);
     const [data1, data2] = await Promise.all([res1.json(), res2.json()]);
     state.details = [data1, data2];
+
     return data1, data2;
   } catch (err) {
     throw err;
   }
 }
+function persistance() {
+  localStorage.setItem('movie', JSON.stringify(state.bookmarks));
+}
+
+export function toggleBookmark(movie) {
+  const index = state.bookmarks.findIndex(el => el.id === movie.id);
+
+  if (index === -1) {
+    state.bookmarks.push(movie);
+    state.details[1].bookmarked = true;
+  } else {
+    state.bookmarks.splice(index, 1);
+
+    state.details[1].bookmarked = false;
+  }
+
+  if (movie.id === state.details[1].id)
+    state.details[1].bookmarked = movie.bookmarked;
+
+  persistance();
+}
+
+function init() {
+  const getStoredMovie = JSON.parse(localStorage.getItem('movie'));
+  if (getStoredMovie) state.bookmarks = getStoredMovie;
+}
+init();

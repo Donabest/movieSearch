@@ -172,7 +172,7 @@
   .side-nav {
     position: fixed;
     background: rgba(0, 0, 0, 0.891);
-    width: 300px;
+    width: 350px;
     height: 100vh;
     right: 0;
     top: 0;
@@ -193,10 +193,9 @@
     }
   }
   .side-bookmarks {
-    font-size: 1rem;
     font-family: v.$secondary-font;
   }
-  .sidebar-preview-bookmarks {
+  .preview-bookmarks {
     @extend %preview !optional;
     margin-top: 1rem;
   }

@@ -5,6 +5,7 @@ import view from './view/view.js';
 import * as helper from './helper.js';
 import { Navigation } from 'swiper/modules';
 import '/node_modules/swiper/swiper-bundle.min.css';
+import bookmarkView from './view/bookmarkView.js';
 
 async function controlSuggestion(input) {
   try {
@@ -44,6 +45,22 @@ async function controlModalDetails(id, type = 'movie') {
   }
 }
 
+function controlAddBookmarks() {
+  model.toggleBookmark(model.state.details[1]);
+
+  view.generateModalDetailsMarkup(model.state.details);
+
+  bookmarkView.generateMarkUp(model.state.bookmarks);
+}
+
+async function controlBookmarkOnclick(id) {
+  await loadSectionUi(id);
+}
+
+function render() {
+  bookmarkView.generateMarkUp(model.state.bookmarks);
+}
+
 function init() {
   view.modalEvent();
   helper.closeOnClick();
@@ -51,7 +68,11 @@ function init() {
   view.suggestionlistData(loadSectionUi);
   view.SectionDetailsData(controlModalDetails);
   view.trendingData(loadSectionUi);
+  bookmarkView.renderBookmarkmark(controlBookmarkOnclick);
+  bookmarkView.markBookmark(controlAddBookmarks);
+
   controlTrending();
+  render();
 }
 init();
 

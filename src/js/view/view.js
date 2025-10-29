@@ -73,6 +73,7 @@ class View {
       handler(id, type);
     });
   }
+
   generateMarkup(data, type) {
     const header = document.getElementById('main--header');
     header.style.background = `linear-gradient(
@@ -179,7 +180,9 @@ class View {
         }" target="_blank">play Trailer</a>
         </button>
         <button class="modal--icon">
-          <i class="fa-solid fa-bookmark"></i>
+          <i class="fa-${
+            data[1].bookmarked === true ? 'solid' : 'regular'
+          } fa-bookmark"></i>
         </button>
       </div>
     `;
