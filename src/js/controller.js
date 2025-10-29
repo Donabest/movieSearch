@@ -53,14 +53,13 @@ function controlAddBookmarks() {
   bookmarkView.generateMarkUp(model.state.bookmarks);
 }
 
-async function controlBookmarkOnclick(id) {
-  await loadSectionUi(id);
+async function controlBookmarkOnclick(id, type = 'movie') {
+  await loadSectionUi(id, type);
 }
 
 function render() {
   bookmarkView.generateMarkUp(model.state.bookmarks);
 }
-
 function init() {
   view.modalEvent();
   helper.closeOnClick();
@@ -70,7 +69,6 @@ function init() {
   view.trendingData(loadSectionUi);
   bookmarkView.renderBookmarkmark(controlBookmarkOnclick);
   bookmarkView.markBookmark(controlAddBookmarks);
-
   controlTrending();
   render();
 }

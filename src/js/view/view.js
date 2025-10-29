@@ -71,6 +71,7 @@ class View {
       const type = target.dataset.type;
       if (!id) return;
       handler(id, type);
+      return id;
     });
   }
 
@@ -139,7 +140,8 @@ class View {
     });
   }
 
-  generateModalDetailsMarkup(data) {
+  generateModalDetailsMarkup(data, type) {
+    console.log(data);
     helper.modal.classList.add('show');
     helper.modalDetails.innerHTML = '';
     helper.modalDetails.innerHTML = `<span class="spinner"><i class="fa-solid fa-spinner"></i></span>`;

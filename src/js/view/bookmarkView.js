@@ -19,6 +19,7 @@ class bookmarksView {
   markBookmark(handler) {
     helper.modal.addEventListener('click', e => {
       const btn = e.target.closest('.modal--icon');
+      console.log(btn);
       if (!btn) return;
       handler();
     });
@@ -35,8 +36,8 @@ class bookmarksView {
                 POST_URL + (bookmark.poster_path || bookmark.backdrop_path)
               }" />
               <span class="bookmarks-content" data-id="${bookmark.id}">${
-            bookmark.title
-          } </span>
+            bookmark.title || bookmark.name
+          }  </span>
             </div>
             <span class="bookmarks-icon"
               ><i class="fa-${
