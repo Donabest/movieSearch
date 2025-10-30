@@ -8,8 +8,8 @@ class bookmarksView {
     this._parentElement.forEach(parentEl => {
       parentEl.addEventListener('click', e => {
         const target = e.target.closest('.bookmarks-content');
-        if (!target) return;
         const id = target.dataset.id;
+        if (!target || !id) return;
         data(id);
         helper.bookmarkDisplay.classList.remove('active');
       });
@@ -19,7 +19,6 @@ class bookmarksView {
   markBookmark(handler) {
     helper.modal.addEventListener('click', e => {
       const btn = e.target.closest('.modal--icon');
-      console.log(btn);
       if (!btn) return;
       handler();
     });

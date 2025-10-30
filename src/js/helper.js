@@ -12,6 +12,8 @@ export const inputWrapper = document.querySelector('.search-input-wrapper');
 export const sectionContent = document.querySelector('.section-content');
 export const suggestionList = document.querySelector('.suggestion-list');
 export const inputValue = document.querySelector('.search-input');
+export const searchInput = document.querySelector('.search-view-card');
+export const grid = document.querySelector('.search-view-grid');
 
 export const runtime = function (runtime) {
   if (!runtime) return;

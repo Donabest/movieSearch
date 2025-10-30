@@ -1,5 +1,6 @@
 import { IMG_URL, POST_URL, YOUTUBE_URL } from '../config';
 import * as helper from '../helper.js';
+const grid = document.querySelector('.search-view-grid');
 
 class View {
   constructor() {
@@ -31,8 +32,22 @@ class View {
       helper.modal.classList.remove('show');
     });
   }
+  inputSearch(handler) {
+    helper.inputWrapper.addEventListener('submit', e => {
+      e.preventDefault();
+      const input = document.querySelector('.search-input');
+      const inputValue = input.value.trim().toLowerCase();
+      if (!inputValue) return;
+      input.value = '';
+      const view = document.querySelector('.search-view');
+      view.classList.remove('hidden');
+      view.scrollIntoView({ behavior: 'smooth' });
+      handler(inputValue);
+      helper.searchDisplay.classList.remove('active');
+    });
+  }
 
-  searchInput(handlers) {
+  InputSuggestion(handlers) {
     helper.inputWrapper.addEventListener('input', function (e) {
       e.preventDefault();
       const inputValue = e.target.value.trim().toLowerCase();
@@ -139,9 +154,43 @@ class View {
       handler(id);
     });
   }
+  generateSearchMarkup(data) {
+    const html = data.results
+      .map(data => {
+        return ` 
+         <div class="search-view-card">
+            <div class="search-view-card-img">
+              <img src="${
+                POST_URL + data.poster_path || POST_URL + data.backdrop_path
+              }" alt="" />
+            </div>
+            <div class="display">
+              <h4>${data.title || data.name}</h4>
+              <div class="modal--catagories cate">
+                <span class="movie--year">${
+                  data.first_air_date || data.release_date
+                }</span>
+                <span class="movie--categ">${data.media_type}</span>
+              </div>
+              <div class="modal--overview overview">
+                <p>${data.overview || data.biography}</p>
+              </div>
+              <div class="modal-btn-section btn">
+                <button class="modal--icon">
+                  <i class="fa-solid fa-bookmark"></i>
+                </button>
+              </div>
+            </div>
+         </div>
+      `;
+      })
+      .join('');
+    grid.innerHTML = '';
+    helper.suggestionList.innerHTML = '';
+    grid.insertAdjacentHTML('beforeend', html);
+  }
 
-  generateModalDetailsMarkup(data, type) {
-    console.log(data);
+  generateModalDetailsMarkup(data) {
     helper.modal.classList.add('show');
     helper.modalDetails.innerHTML = '';
     helper.modalDetails.innerHTML = `<span class="spinner"><i class="fa-solid fa-spinner"></i></span>`;

@@ -5,6 +5,8 @@ export const state = {
   video: {},
   details: {},
   bookmarks: [],
+  noBack: [],
+  type: [],
 };
 
 export async function getMovieData(query = 'batman') {
@@ -16,6 +18,7 @@ export async function getMovieData(query = 'batman') {
     const [data1, data2] = await Promise.all([res1.json(), res2.json()]);
     state.trending = data1.results;
     state.search = data2;
+
     return data1, data2;
   } catch (err) {
     throw err;
@@ -30,6 +33,9 @@ export async function getMovieDetails(id, type = 'movie') {
     ]);
     const [data1, data2] = await Promise.all([res1.json(), res2.json()]);
     state.details = [data1, data2];
+    if (state.bookmarks.some(bookmark => bookmark.id === data2.id)) {
+      state.details[1].bookmarked = true;
+    } else state.details[1].bookmarked = false;
 
     return data1, data2;
   } catch (err) {
@@ -56,6 +62,15 @@ export function toggleBookmark(movie) {
     state.details[1].bookmarked = movie.bookmarked;
 
   persistance();
+}
+
+export function removeNobackground() {
+  state.noBack.push(...state.search.results);
+  state.noBack.filter(movie => {
+    const backdrop = movie.backdrop_path && movie.backdrop_path !== 'null';
+    const hasProfile = movie.profile_path && movie.profile_path !== 'null';
+    return backdrop || hasProfile;
+  });
 }
 
 function init() {

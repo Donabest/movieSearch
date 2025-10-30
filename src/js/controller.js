@@ -53,22 +53,31 @@ function controlAddBookmarks() {
   bookmarkView.generateMarkUp(model.state.bookmarks);
 }
 
-async function controlBookmarkOnclick(id, type = 'movie') {
-  await loadSectionUi(id, type);
+async function controlBookmarkOnclick(id) {
+  await loadSectionUi(id);
 }
 
 function render() {
   bookmarkView.generateMarkUp(model.state.bookmarks);
 }
+
+async function controlSearch(input) {
+  await model.getMovieData(input);
+  model.removeNobackground();
+
+  view.generateSearchMarkup(model.state.search);
+}
+
 function init() {
   view.modalEvent();
   helper.closeOnClick();
-  view.searchInput(controlSuggestion);
+  view.InputSuggestion(controlSuggestion);
   view.suggestionlistData(loadSectionUi);
   view.SectionDetailsData(controlModalDetails);
   view.trendingData(loadSectionUi);
   bookmarkView.renderBookmarkmark(controlBookmarkOnclick);
   bookmarkView.markBookmark(controlAddBookmarks);
+  view.inputSearch(controlSearch);
   controlTrending();
   render();
 }
