@@ -20,7 +20,6 @@ async function controlSuggestion(input) {
 async function loadSectionUi(id, type) {
   try {
     await model.getMovieDetails(id, type);
-
     view.generateMarkup(model.state.details, type);
   } catch (err) {
     console.error(err);
@@ -44,7 +43,6 @@ async function controlModalDetails(id, type = 'movie') {
     console.error(`please try again: ${err}`);
   }
 }
-
 function controlAddBookmarks() {
   model.toggleBookmark(model.state.details[1]);
 
@@ -67,6 +65,12 @@ async function controlSearch(input) {
 
   view.generateSearchMarkup(model.state.search);
 }
+function kk() {
+  console.log(model.state.bookmarks);
+  model.toggleBookmark(model.state.bookmarks);
+  bookmarkView.generateMarkUp(model.state.bookmarks);
+}
+bookmarkView.b(kk);
 
 function init() {
   view.modalEvent();
@@ -78,6 +82,7 @@ function init() {
   bookmarkView.renderBookmarkmark(controlBookmarkOnclick);
   bookmarkView.markBookmark(controlAddBookmarks);
   view.inputSearch(controlSearch);
+  view.searchOnclick(loadSectionUi);
   controlTrending();
   render();
 }

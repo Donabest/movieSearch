@@ -9,13 +9,23 @@ class bookmarksView {
       parentEl.addEventListener('click', e => {
         const target = e.target.closest('.bookmarks-content');
         const id = target.dataset.id;
-        if (!target || !id) return;
+        // if()
+        if (!target && !id) return;
         data(id);
         helper.bookmarkDisplay.classList.remove('active');
       });
     });
   }
 
+  b(handler) {
+    this._parentElement.forEach(bbtn =>
+      bbtn.addEventListener('click', e => {
+        const btn = e.target.closest('.bookmarks-icon');
+        if (!btn) return;
+        handler();
+      })
+    );
+  }
   markBookmark(handler) {
     helper.modal.addEventListener('click', e => {
       const btn = e.target.closest('.modal--icon');

@@ -1,7 +1,7 @@
 import { IMG_URL, POST_URL, YOUTUBE_URL } from '../config';
 import * as helper from '../helper.js';
-const grid = document.querySelector('.search-view-grid');
 
+const header = document.getElementById('main--header');
 class View {
   constructor() {
     helper.hamburgerMenu.addEventListener('click', this.toggle.bind(this));
@@ -44,6 +44,17 @@ class View {
       view.scrollIntoView({ behavior: 'smooth' });
       handler(inputValue);
       helper.searchDisplay.classList.remove('active');
+    });
+  }
+
+  searchOnclick(handler) {
+    helper.grid.addEventListener('click', e => {
+      const target = e.target.closest('.search-view-card');
+      if (!target) return;
+      const type = target.dataset.type;
+      const id = target.dataset.id;
+      handler(id, type);
+      header.scrollIntoView({ behavior: 'smooth' });
     });
   }
 
@@ -91,7 +102,6 @@ class View {
   }
 
   generateMarkup(data, type) {
-    const header = document.getElementById('main--header');
     header.style.background = `linear-gradient(
       to top,
       rgba(0, 0, 0, 0.9) 0,
@@ -105,6 +115,7 @@ class View {
     header.style.backgroundPosition = 'center';
     header.style.backgroundRepeat = 'no-repeat';
     header.style.backgroundSize = 'cover';
+    console.log(data);
 
     helper.sectionContent.innerHTML = `
           <h2>${data[1].title || data[1].name}</h2>
@@ -155,10 +166,13 @@ class View {
     });
   }
   generateSearchMarkup(data) {
+    console.log(data);
     const html = data.results
       .map(data => {
         return ` 
-         <div class="search-view-card">
+         <div class="search-view-card" data-type="${
+           data.media_type
+         }" data-id="${data.id}">
             <div class="search-view-card-img">
               <img src="${
                 POST_URL + data.poster_path || POST_URL + data.backdrop_path
@@ -176,8 +190,10 @@ class View {
                 <p>${data.overview || data.biography}</p>
               </div>
               <div class="modal-btn-section btn">
-                <button class="modal--icon">
-                  <i class="fa-solid fa-bookmark"></i>
+                <button class="modal--icon bookmarks-icon">
+                  <i class="fa-${
+                    data.bookmarked === true ? 'solid' : 'regular'
+                  } fa-bookmark"></i>
                 </button>
               </div>
             </div>
@@ -185,9 +201,9 @@ class View {
       `;
       })
       .join('');
-    grid.innerHTML = '';
+    helper.grid.innerHTML = '';
     helper.suggestionList.innerHTML = '';
-    grid.insertAdjacentHTML('beforeend', html);
+    helper.grid.insertAdjacentHTML('beforeend', html);
   }
 
   generateModalDetailsMarkup(data) {

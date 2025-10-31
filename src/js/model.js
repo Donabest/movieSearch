@@ -18,13 +18,11 @@ export async function getMovieData(query = 'batman') {
     const [data1, data2] = await Promise.all([res1.json(), res2.json()]);
     state.trending = data1.results;
     state.search = data2;
-
     return data1, data2;
   } catch (err) {
     throw err;
   }
 }
-
 export async function getMovieDetails(id, type = 'movie') {
   try {
     const [res1, res2] = await Promise.all([
@@ -47,6 +45,7 @@ function persistance() {
 }
 
 export function toggleBookmark(movie) {
+  console.log(movie.id);
   const index = state.bookmarks.findIndex(el => el.id === movie.id);
 
   if (index === -1) {
