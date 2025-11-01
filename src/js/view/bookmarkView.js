@@ -9,7 +9,6 @@ class bookmarksView {
       parentEl.addEventListener('click', e => {
         const target = e.target.closest('.bookmarks-content');
         const id = target.dataset.id;
-        // if()
         if (!target && !id) return;
         data(id);
         helper.bookmarkDisplay.classList.remove('active');
@@ -17,20 +16,32 @@ class bookmarksView {
     });
   }
 
-  b(handler) {
+  renderBookmarkIcon(handler) {
     this._parentElement.forEach(bbtn =>
       bbtn.addEventListener('click', e => {
         const btn = e.target.closest('.bookmarks-icon');
+        const id = btn.dataset.id;
         if (!btn) return;
-        handler();
+        handler(id);
       })
     );
   }
+
   markBookmark(handler) {
     helper.modal.addEventListener('click', e => {
       const btn = e.target.closest('.modal--icon');
       if (!btn) return;
       handler();
+    });
+  }
+
+  resultsBookmark(handler) {
+    helper.grid.addEventListener('click', e => {
+      const target = e.target.closest('.bookmarks-icon');
+      if (!target) return;
+      const id = target.dataset.id;
+      // const type = target.dataset.type;
+      handler(id);
     });
   }
 
@@ -48,7 +59,7 @@ class bookmarksView {
             bookmark.title || bookmark.name
           }  </span>
             </div>
-            <span class="bookmarks-icon"
+            <span class="bookmarks-icon" data-id="${bookmark.id}"
               ><i class="fa-${
                 bookmark.bookmarked === true ? 'solid' : 'regular'
               } fa-bookmark"></i
@@ -57,6 +68,15 @@ class bookmarksView {
         `;
         })
         .join('');
+    });
+  }
+
+  renderMessage() {
+    this._parentElement.forEach(parentEl => {
+      parentEl.innerHTML = '';
+      parentEl.innerHTML = `<li class="message">
+        <span>No BookMark yet</span>
+      </li>`;
     });
   }
 }

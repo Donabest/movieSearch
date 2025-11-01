@@ -14,6 +14,7 @@ export const suggestionList = document.querySelector('.suggestion-list');
 export const inputValue = document.querySelector('.search-input');
 export const searchInput = document.querySelector('.search-view-card');
 export const grid = document.querySelector('.search-view-grid');
+const errMessage = document.querySelector('.error-message');
 
 export const runtime = function (runtime) {
   if (!runtime) return;
@@ -52,5 +53,10 @@ export function closeOnClick() {
     ) {
       bookmarkDisplay.classList.toggle('active');
     }
+    if (!errMessage.classList.contains('hidden')) {
+      errMessage.classList.toggle('hidden');
+    }
   });
+
+  console.log(errMessage);
 }

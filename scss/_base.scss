@@ -148,8 +148,12 @@
     background: color.adjust(v.$dark-color, $lightness: 5%);
     width: 400px;
     height: 300px;
+    overflow: scroll;
     padding: 1rem;
     font-family: v.$secondary-font;
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     .preview-bookmarks {
       @extend %preview !optional;
@@ -162,6 +166,10 @@
       width: 50px;
       height: 50px;
       border-radius: 50px;
+    }
+    .message {
+      @extend %flex;
+      margin-top: 2rem;
     }
   }
 }
@@ -195,6 +203,7 @@
   .side-bookmarks {
     font-family: v.$secondary-font;
   }
+
   .preview-bookmarks {
     @extend %preview !optional;
     margin-top: 1rem;
@@ -367,8 +376,8 @@
 }
 
 .search-view {
+  position: relative;
   background: color.adjust(v.$dark-color, $lightness: -30%);
-  height: 100vh;
   overflow: scroll;
   transition: all 0.6s ease-in;
   &::-webkit-scrollbar {
@@ -465,5 +474,42 @@
     gap: 1rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+.search-error-message {
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-family: v.$secondary-font;
+  margin: 2rem 0;
+}
+
+.bookmarks-List {
+  .message {
+    font-size: 1.5rem;
+    font-weight: 300;
+    font-family: v.$secondary-font;
+    margin: 2rem 0;
+  }
+}
+.error-message {
+  &-overlay {
+    @extend %overlay !optional;
+    z-index: 1;
+  }
+  &-modal {
+    position: relative;
+    margin: 10rem 2rem 2rem;
+    padding: 1rem 2rem;
+    text-align: center;
+    background: v.$light-color;
+    color: red;
+  }
+  .fa-ban {
+    color: red;
+  }
+  .error-cancel {
+    position: absolute;
+    right: 50%;
+    top: 10%;
   }
 }

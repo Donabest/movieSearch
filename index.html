@@ -28,7 +28,7 @@
 
   <body>
     <header id="main--header">
-      <div class="main-nav">
+      <div class="main-nav js-nav">
         <nav class="navbar">
           <div class="nav">
             <h1 class="logo">Movie search</h1>
@@ -55,7 +55,7 @@
         </nav>
       </div>
 
-      <nav class="side-navbar hidden">
+      <nav class="side-navbar js-nav hidden">
         <h1 class="logo">Movie search</h1>
         <div class="side-nav">
           <i class="fa-solid fa-xmark"></i>
@@ -129,7 +129,10 @@
       <div class="bookmarks-fetaures">
         <div class="bookmarks">
           <ul class="bookmarks-list">
-            <li class="preview-bookmarks">
+            <li class="message">
+              <span>No book mark yet</span>
+            </li>
+            <!-- <li class="preview-bookmarks">
               <div class="bookmarks-img">
                 <img src="src/img/trending6.jpeg" />
                 <span class="bookmarks-content"> Berlin series </span>
@@ -137,8 +140,11 @@
               <span class="bookmarks-icon"
                 ><i class="fa-solid fa-bookmark"></i
               ></span>
-            </li>
+            </li> -->
           </ul>
+          <!-- <div class="message">
+            <span>No book mark yet</span>
+          </div> -->
         </div>
       </div>
     </div>
@@ -189,10 +195,13 @@
     </div>
     <section class="search-view hidden">
       <div class="search-view--view">
+        <!-- <div class="search-error-message">
+          <h4>Search Result Not Found</h4>
+        </div> -->
         <h1>Search Results</h1>
         <div class="search-view-grid">
           <div class="search-view-card">
-            <div class="search-view-card-img">
+            <!-- <div class="search-view-card-img">
               <img src="src/img/trending6.jpeg" alt="" class="image" />
             </div>
             <div class="display">
@@ -218,10 +227,21 @@
                   <i class="fa-solid fa-bookmark"></i>
                 </button>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
     </section>
+
+    <div class="error-message">
+      <!-- <div class="error-message-overlay">
+        <div class="error-message-modal">
+          <p>
+            <i class="fa-solid fa-ban"></i>Please Check Your Internet Connection
+            or Try Again Later
+          </p>
+        </div>
+      </div> -->
+    </div>
   </body>
 </html>

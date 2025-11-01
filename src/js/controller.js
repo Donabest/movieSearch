@@ -7,42 +7,66 @@ import { Navigation } from 'swiper/modules';
 import '/node_modules/swiper/swiper-bundle.min.css';
 import bookmarkView from './view/bookmarkView.js';
 
+//Control Suggestion input data and the list
 async function controlSuggestion(input) {
   try {
     await model.getMovieData(input);
 
     view.renderSuggestionList(model.state.search);
   } catch (err) {
-    console.error(err);
+    view.renderErrorMessage(
+      'Please Check Your Internet Connection or Try Again Later'
+    );
   }
 }
 
+// control load ui data's
 async function loadSectionUi(id, type) {
   try {
     await model.getMovieDetails(id, type);
     view.generateMarkup(model.state.details, type);
   } catch (err) {
-    console.error(err);
+    view.renderErrorMessage(
+      'Please Check Your Internet Connection or Try Again Later'
+    );
   }
 }
 
+//Control Trending section data's
 async function controlTrending() {
   try {
     await model.getMovieData();
     view.renderTrending(model.state.trending);
   } catch (err) {
-    console.error(err);
+    view.renderErrorMessage(
+      'Please Check Your Internet Connection or Try Again Later'
+    );
   }
 }
+
+//control movie modal details
 async function controlModalDetails(id, type = 'movie') {
   try {
     await model.getMovieDetails(id, type);
 
     view.generateModalDetailsMarkup(model.state.details);
   } catch (err) {
-    console.error(`please try again: ${err}`);
+    view.renderErrorMessage(
+      'please try again: Please Check Your Internet Connection or Try Again Later'
+    );
   }
 }
+
+//control the bookmark in search result section
+function controlSearchResultsBookmark(id) {
+  model.toggle(id);
+
+  bookmarkView.generateMarkUp(model.state.bookmarks);
+
+  view.generateSearchMarkup(model.state.search);
+}
+
+//Control Bookmark Add and Remove
 function controlAddBookmarks() {
   model.toggleBookmark(model.state.details[1]);
 
@@ -51,26 +75,42 @@ function controlAddBookmarks() {
   bookmarkView.generateMarkUp(model.state.bookmarks);
 }
 
+//Control the Bookmark rendering when click
 async function controlBookmarkOnclick(id) {
   await loadSectionUi(id);
 }
 
-function render() {
+//Control the bookmark section
+function controlRenderSectionBookmark() {
   bookmarkView.generateMarkUp(model.state.bookmarks);
+  if (model.state.bookmarks.length === 0) bookmarkView.renderMessage();
 }
 
+//Control the Search Section
 async function controlSearch(input) {
-  await model.getMovieData(input);
-  model.removeNobackground();
+  try {
+    await model.getMovieData(input);
 
-  view.generateSearchMarkup(model.state.search);
+    model.removeNobackground();
+
+    if (model.state.search.results.length === 0) {
+      view.renderError('Search Result Not Found');
+    }
+
+    view.generateSearchMarkup(model.state.search);
+  } catch (err) {
+    view.renderErrorMessage(
+      'Please Check Your Internet Connection or Try Again Later'
+    );
+  }
 }
-function kk() {
-  console.log(model.state.bookmarks);
-  model.toggleBookmark(model.state.bookmarks);
+
+//Control the bookmark icon in the Bookmark section
+function controlBookmarkSectionIcon(id) {
+  model.tooglebookmarkIcon(id);
   bookmarkView.generateMarkUp(model.state.bookmarks);
+  if (model.state.bookmarks.length === 0) bookmarkView.renderMessage;
 }
-bookmarkView.b(kk);
 
 function init() {
   view.modalEvent();
@@ -79,15 +119,16 @@ function init() {
   view.suggestionlistData(loadSectionUi);
   view.SectionDetailsData(controlModalDetails);
   view.trendingData(loadSectionUi);
-  bookmarkView.renderBookmarkmark(controlBookmarkOnclick);
-  bookmarkView.markBookmark(controlAddBookmarks);
   view.inputSearch(controlSearch);
   view.searchOnclick(loadSectionUi);
+  bookmarkView.resultsBookmark(controlSearchResultsBookmark);
+  bookmarkView.renderBookmarkmark(controlBookmarkOnclick);
+  bookmarkView.markBookmark(controlAddBookmarks);
+  bookmarkView.renderBookmarkIcon(controlBookmarkSectionIcon);
   controlTrending();
-  render();
+  controlRenderSectionBookmark();
 }
 init();
-
 const swiper = new Swiper('.swiper', {
   modules: [Navigation],
   slidesPerView: 7,

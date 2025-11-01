@@ -2,6 +2,8 @@ import { IMG_URL, POST_URL, YOUTUBE_URL } from '../config';
 import * as helper from '../helper.js';
 
 const header = document.getElementById('main--header');
+const errMessage = document.querySelector('.error-message');
+
 class View {
   constructor() {
     helper.hamburgerMenu.addEventListener('click', this.toggle.bind(this));
@@ -32,6 +34,15 @@ class View {
       helper.modal.classList.remove('show');
     });
   }
+  trendingData(handler) {
+    helper.swipperWrapper.addEventListener('click', e => {
+      const target = e.target.closest('.swiper-slide');
+      const id = +target.dataset.movie;
+      if (!id) return;
+      handler(id);
+    });
+  }
+
   inputSearch(handler) {
     helper.inputWrapper.addEventListener('submit', e => {
       e.preventDefault();
@@ -44,12 +55,13 @@ class View {
       view.scrollIntoView({ behavior: 'smooth' });
       handler(inputValue);
       helper.searchDisplay.classList.remove('active');
+      errMessage.classList.add('hidden');
     });
   }
 
   searchOnclick(handler) {
     helper.grid.addEventListener('click', e => {
-      const target = e.target.closest('.search-view-card');
+      const target = e.target.closest('.search-view-card-img');
       if (!target) return;
       const type = target.dataset.type;
       const id = target.dataset.id;
@@ -115,7 +127,6 @@ class View {
     header.style.backgroundPosition = 'center';
     header.style.backgroundRepeat = 'no-repeat';
     header.style.backgroundSize = 'cover';
-    console.log(data);
 
     helper.sectionContent.innerHTML = `
           <h2>${data[1].title || data[1].name}</h2>
@@ -157,23 +168,14 @@ class View {
       .join('');
   }
 
-  trendingData(handler) {
-    helper.swipperWrapper.addEventListener('click', e => {
-      const target = e.target.closest('.swiper-slide');
-      const id = +target.dataset.movie;
-      if (!id) return;
-      handler(id);
-    });
-  }
   generateSearchMarkup(data) {
-    console.log(data);
     const html = data.results
       .map(data => {
         return ` 
-         <div class="search-view-card" data-type="${
-           data.media_type
-         }" data-id="${data.id}">
-            <div class="search-view-card-img">
+         <div class="search-view-card">
+            <div class="search-view-card-img" data-type="${
+              data.media_type
+            }" data-id="${data.id}">
               <img src="${
                 POST_URL + data.poster_path || POST_URL + data.backdrop_path
               }" alt="" />
@@ -190,7 +192,9 @@ class View {
                 <p>${data.overview || data.biography}</p>
               </div>
               <div class="modal-btn-section btn">
-                <button class="modal--icon bookmarks-icon">
+                <button class="modal--icon bookmarks-icon" data-id=${
+                  data.id
+                } data-type="${data.media_type}">
                   <i class="fa-${
                     data.bookmarked === true ? 'solid' : 'regular'
                   } fa-bookmark"></i>
@@ -255,6 +259,28 @@ class View {
     `;
     helper.modalDetails.innerHTML = '';
     helper.modalDetails.insertAdjacentHTML('beforeend', html);
+  }
+
+  renderMessage(message) {
+    const parentEl = document.querySelector('.search-view--view');
+    parentEl.innerHTML = '';
+    const mark = `
+      <div class="search-error-message">
+         <h4>${message}</i></h4>
+       </div>
+    `;
+    parent.insertAdjacentHTML('beforeend', mark);
+  }
+
+  renderErrorMessage(message = 'error') {
+    errMessage.classList.remove('hidden');
+    errMessage.innerHTML = `
+      <div class="error-message-overlay">
+        <div class="error-message-modal">
+          <p><i class="fa-solid fa-ban"></i>${message}</p>
+        </div>
+      </div>
+    `;
   }
 }
 export default new View();

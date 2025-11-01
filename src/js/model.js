@@ -9,7 +9,7 @@ export const state = {
   type: [],
 };
 
-export async function getMovieData(query = 'batman') {
+export async function getMovieData(query) {
   try {
     const [res1, res2] = await Promise.all([
       fetch(`${BASE_URL}/trending/movie/day?api_key=${API_KEY}`),
@@ -18,11 +18,13 @@ export async function getMovieData(query = 'batman') {
     const [data1, data2] = await Promise.all([res1.json(), res2.json()]);
     state.trending = data1.results;
     state.search = data2;
+
     return data1, data2;
   } catch (err) {
     throw err;
   }
 }
+
 export async function getMovieDetails(id, type = 'movie') {
   try {
     const [res1, res2] = await Promise.all([
@@ -45,7 +47,6 @@ function persistance() {
 }
 
 export function toggleBookmark(movie) {
-  console.log(movie.id);
   const index = state.bookmarks.findIndex(el => el.id === movie.id);
 
   if (index === -1) {
@@ -60,6 +61,22 @@ export function toggleBookmark(movie) {
   if (movie.id === state.details[1].id)
     state.details[1].bookmarked = movie.bookmarked;
 
+  persistance();
+}
+
+export function tooglebookmarkIcon(id) {
+  const index = state.bookmarks.findIndex(el => el.id === +id);
+  state.bookmarks.splice(index, 1);
+  state.bookmarks.map(b => {
+    if (id === b.id) b.bookmarked = false;
+  });
+  persistance();
+}
+
+export function toggle(id) {
+  const data = state.search.results.find(data => data.id === +id);
+  state.bookmarks.push(data);
+  data.bookmarked = true;
   persistance();
 }
 
