@@ -14,9 +14,7 @@ async function controlSuggestion(input) {
 
     view.renderSuggestionList(model.state.search);
   } catch (err) {
-    view.renderErrorMessage(
-      'Please Check Your Internet Connection or Try Again Later'
-    );
+    view.renderMessage('Search Result Not Found');
   }
 }
 
@@ -52,7 +50,7 @@ async function controlModalDetails(id, type = 'movie') {
     view.generateModalDetailsMarkup(model.state.details);
   } catch (err) {
     view.renderErrorMessage(
-      'please try again: Please Check Your Internet Connection or Try Again Later'
+      ' Please Check Your Internet Connection or Try Again Later'
     );
   }
 }
@@ -99,9 +97,7 @@ async function controlSearch(input) {
 
     view.generateSearchMarkup(model.state.search);
   } catch (err) {
-    view.renderErrorMessage(
-      'Please Check Your Internet Connection or Try Again Later'
-    );
+    view.renderMessage('Search Result Not Found');
   }
 }
 
