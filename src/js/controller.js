@@ -15,6 +15,7 @@ async function controlSuggestion(input) {
     view.renderSuggestionList(model.state.search);
   } catch (err) {
     view.renderMessage('Search Result Not Found');
+    console.error(err);
   }
 }
 
@@ -22,11 +23,13 @@ async function controlSuggestion(input) {
 async function loadSectionUi(id, type) {
   try {
     await model.getMovieDetails(id, type);
-    view.generateMarkup(model.state.details, type);
+
+    view.generateSectionMarkup(model.state.details, type);
   } catch (err) {
     view.renderErrorMessage(
       'Please Check Your Internet Connection or Try Again Later'
     );
+    // console.error(`${err.message}`);
   }
 }
 
@@ -34,11 +37,13 @@ async function loadSectionUi(id, type) {
 async function controlTrending() {
   try {
     await model.getMovieData();
+
     view.renderTrending(model.state.trending);
   } catch (err) {
     view.renderErrorMessage(
       'Please Check Your Internet Connection or Try Again Later'
     );
+    // console.error(err);
   }
 }
 
@@ -47,11 +52,12 @@ async function controlModalDetails(id, type = 'movie') {
   try {
     await model.getMovieDetails(id, type);
 
-    view.generateModalDetailsMarkup(model.state.details);
+    view.generateModalDetailsMarkup(model.state.details, type);
   } catch (err) {
     view.renderErrorMessage(
       ' Please Check Your Internet Connection or Try Again Later'
     );
+    // console.error(err);
   }
 }
 
@@ -67,9 +73,7 @@ function controlSearchResultsBookmark(id) {
 //Control Bookmark Add and Remove
 function controlAddBookmarks() {
   model.toggleBookmark(model.state.details[1]);
-
   view.generateModalDetailsMarkup(model.state.details);
-
   bookmarkView.generateMarkUp(model.state.bookmarks);
 }
 
@@ -92,18 +96,21 @@ async function controlSearch(input) {
     model.removeNobackground();
 
     if (model.state.search.results.length === 0) {
-      view.renderError('Search Result Not Found');
+      view.renderMessage('Search Result Not Found');
     }
 
     view.generateSearchMarkup(model.state.search);
   } catch (err) {
     view.renderMessage('Search Result Not Found');
+    console.log(err);
   }
 }
 
 //Control the bookmark icon in the Bookmark section
 function controlBookmarkSectionIcon(id) {
-  model.tooglebookmarkIcon(id);
+  //Delete bookmark
+  model.DeleteBookmark(id);
+  //render bookmark after delete
   bookmarkView.generateMarkUp(model.state.bookmarks);
   if (model.state.bookmarks.length === 0) bookmarkView.renderMessage;
 }
@@ -118,7 +125,7 @@ function init() {
   view.inputSearch(controlSearch);
   view.searchOnclick(loadSectionUi);
   bookmarkView.resultsBookmark(controlSearchResultsBookmark);
-  bookmarkView.renderBookmarkmark(controlBookmarkOnclick);
+  bookmarkView.renderBookmarkToUi(controlBookmarkOnclick);
   bookmarkView.markBookmark(controlAddBookmarks);
   bookmarkView.renderBookmarkIcon(controlBookmarkSectionIcon);
   controlTrending();

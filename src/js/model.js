@@ -64,7 +64,7 @@ export function toggleBookmark(movie) {
   persistance();
 }
 
-export function tooglebookmarkIcon(id) {
+export function DeleteBookmark(id) {
   const index = state.bookmarks.findIndex(el => el.id === +id);
   state.bookmarks.splice(index, 1);
   state.bookmarks.map(b => {

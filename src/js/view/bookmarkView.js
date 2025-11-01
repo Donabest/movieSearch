@@ -4,7 +4,7 @@ import { POST_URL } from '../config';
 class bookmarksView {
   _parentElement = document.querySelectorAll('.bookmarks-list');
 
-  renderBookmarkmark(data) {
+  renderBookmarkToUi(data) {
     this._parentElement.forEach(parentEl => {
       parentEl.addEventListener('click', e => {
         const target = e.target.closest('.bookmarks-content');

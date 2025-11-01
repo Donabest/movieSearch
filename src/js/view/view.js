@@ -113,7 +113,7 @@ class View {
     });
   }
 
-  generateMarkup(data, type) {
+  generateSectionMarkup(data, type) {
     header.style.background = `linear-gradient(
       to top,
       rgba(0, 0, 0, 0.9) 0,
@@ -269,7 +269,7 @@ class View {
          <h4>${message}</i></h4>
        </div>
     `;
-    parent.insertAdjacentHTML('beforeend', mark);
+    parentEl.insertAdjacentHTML('beforeend', mark);
   }
 
   renderErrorMessage(message = 'error') {
