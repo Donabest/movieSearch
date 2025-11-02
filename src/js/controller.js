@@ -13,16 +13,16 @@ async function controlSuggestion(input) {
     await model.getMovieData(input);
 
     //Remove the Results with no background/error and undefined
-    // model.state.search.results = model.cleanSearchResults(
-    //   model.state.search.results
-    // );
+    model.state.search.results = model.cleanSearchResults(
+      model.state.search.results
+    );
 
     if (model.state.search.results.length === 0) throw err;
 
     view.renderSuggestionList(model.state.search.results);
   } catch (err) {
     view.suggesMessage();
-    console.log(err);
+    // console.log(err);
   }
 }
 
@@ -68,13 +68,14 @@ async function controlModalDetails(id, type = 'movie') {
 
 //control the bookmark in search result section
 function controlSearchResultsBookmark(id) {
-  model.toggle(model.state.search.results, id);
+  model.toggle(id);
 
+  const rawResult = model.state.search.results;
+
+  const cleanResult = model.cleanSearchResults(rawResult);
+  model.state.search.results = cleanResult;
   bookmarkView.generateMarkUp(model.state.bookmarks);
-  // model.state.search.results = model.cleanSearchResults(model.state.search.results);
-
   view.generateSearchMarkup(model.state.search.results);
-  // view.update(model.state.search.results);
 }
 
 //Control Bookmark Add and Remove
@@ -103,18 +104,26 @@ function controlRenderSectionBookmark() {
 //Control the Search Section
 async function controlSearch(input) {
   try {
+    if (model.state.search.results.length === 0) throw err;
     await model.getMovieData(input);
 
-    // model.state.search.results = model.cleanSearchResults(
-    //   model.state.search.results
-    // );
+    //Remove Unnecessary data results
+    const rawResult = model.state.search.results;
+    const cleanResult = model.cleanSearchResults(rawResult);
+    model.state.search.results = cleanResult;
 
-    if (model.state.search.results.length === 0) throw err;
+    //checking if the search result is already in bookmark
+    model.state.search.results.forEach(result => {
+      if (model.state.bookmarks.some(b => b.id === result.id)) {
+        result.bookmarked = true;
+      } else {
+        result.bookmarked = false;
+      }
+    });
 
     view.generateSearchMarkup(model.state.search.results);
   } catch (err) {
     view.renderMessage('Search Result Not Found');
-    console.log(err);
   }
 }
 

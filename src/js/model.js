@@ -78,11 +78,10 @@ export function DeleteBookmark(id) {
   persistance();
 }
 
-export function toggle(movie, id) {
-  const cleanResult = cleanSearchResults(movie);
+export function toggle(id) {
+  const cleanResult = cleanSearchResults(state.search.results);
   const data = cleanResult.find(data => data.id === +id);
   const index = state.bookmarks.findIndex(el => el.id === data.id);
-
   if (index === -1) {
     state.bookmarks.push(data);
 
@@ -91,13 +90,11 @@ export function toggle(movie, id) {
     state.bookmarks.splice(index, 1);
     data.bookmarked = false;
   }
-  console.log(index);
-  console.log(data);
 
   if (data.id === id) data.bookmarked = !data.bookmarked;
-  // cleanResult.map(b => {
-  //   if (id === b.id) b.bookmarked = data.bookmarked;
-  // });
+  cleanResult.map(b => {
+    if (id === b.id) b.bookmarked = data.bookmarked;
+  });
   persistance();
 }
 

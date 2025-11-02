@@ -88,3 +88,14 @@ i {
 .fixed {
   position: fixed;
 }
+.spinner {
+  @extend %flex;
+  font-size: 2rem;
+  margin-top: 50%;
+  animation: spinner 1.5s infinite ease-in-out;
+}
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}

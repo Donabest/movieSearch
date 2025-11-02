@@ -63,6 +63,7 @@ class View {
       input.value = '';
       const view = document.querySelector('.search-view');
       view.classList.remove('hidden');
+      view.classList.add('active');
       view.scrollIntoView({ behavior: 'smooth' });
       handler(inputValue);
       helper.searchDisplay.classList.remove('active');
@@ -92,6 +93,8 @@ class View {
   }
 
   renderSuggestionList(data) {
+    helper.suggestionList.innerHTML = '';
+    helper.suggestionList.innerHTML = `<span class="spinner"><i class="fa-solid fa-spinner"></i></span>`;
     const results = data.splice(0, 5);
     helper.suggestionList.innerHTML = results
       .map(suggestion => {
@@ -180,8 +183,13 @@ class View {
   }
 
   generateSearchMarkup(data) {
+    helper.grid.innerHTML = '';
+    helper.grid.innerHTML = `<span class="spinner"><i class="fa-solid fa-spinner"></i></span>`;
     const html = data
       .map(data => {
+        const date = new Date(
+          data.first_air_date || data.release_date
+        ).getFullYear();
         return ` 
          <div class="search-view-card">
             <div class="search-view-card-img" data-type="${
@@ -196,9 +204,7 @@ class View {
             <div class="display">
               <h4>${data.title || data.name}</h4>
               <div class="modal--catagories cate">
-                <span class="movie--year">${
-                  data.first_air_date || data.release_date
-                }</span>
+                <span class="movie--year">${date}</span>
                 <span class="movie--categ">${data.media_type}</span>
               </div>
               <div class="modal--overview overview">
