@@ -99,7 +99,7 @@ export function toggle(id) {
 }
 
 export function cleanSearchResults(data) {
-  if (!data && !Array.isArray(data)) return;
+  if (!data && !Array.isArray(data)) return [];
   return data.filter(movie => {
     return (
       movie.backdrop_path &&

@@ -63,7 +63,6 @@ class View {
       input.value = '';
       const view = document.querySelector('.search-view');
       view.classList.remove('hidden');
-      view.classList.add('active');
       view.scrollIntoView({ behavior: 'smooth' });
       handler(inputValue);
       helper.searchDisplay.classList.remove('active');

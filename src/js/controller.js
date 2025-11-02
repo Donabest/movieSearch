@@ -22,7 +22,7 @@ async function controlSuggestion(input) {
     view.renderSuggestionList(model.state.search.results);
   } catch (err) {
     view.suggesMessage();
-    // console.log(err);
+    //
   }
 }
 
@@ -34,7 +34,6 @@ async function loadSectionUi(id, type) {
     view.generateSectionMarkup(model.state.details);
   } catch (err) {
     view.renderErrorMessage(err);
-    console.log(err);
   }
 }
 
@@ -48,7 +47,6 @@ async function controlTrending() {
     view.renderErrorMessage(
       'Please Check Your Internet Connection or Try Again Later'
     );
-    console.log(err);
   }
 }
 
@@ -62,7 +60,6 @@ async function controlModalDetails(id, type = 'movie') {
     view.renderErrorMessage(
       ' Please Check Your Internet Connection or Try Again Later'
     );
-    console.log(err);
   }
 }
 
@@ -104,7 +101,6 @@ function controlRenderSectionBookmark() {
 //Control the Search Section
 async function controlSearch(input) {
   try {
-    if (model.state.search.results.length === 0) throw err;
     await model.getMovieData(input);
 
     //Remove Unnecessary data results
@@ -120,7 +116,9 @@ async function controlSearch(input) {
         result.bookmarked = false;
       }
     });
+    if (model.state.search.results.length === 0) throw err;
 
+    //Render the results back
     view.generateSearchMarkup(model.state.search.results);
   } catch (err) {
     view.renderMessage('Search Result Not Found');
