@@ -23,7 +23,7 @@
       display: flex;
     }
     .header--section {
-      // margin-top: -3rem !important;
+      margin-top: 3rem !important;
       width: 90% !important;
       padding-left: 0rem !important;
       h2 {
@@ -52,14 +52,18 @@
 
   .modal {
     &--card {
-      padding-bottom: 6rem !important;
       h4 {
         padding: 0.5rem !important;
       }
     }
     &--catagories {
+      display: grid !important;
+      margin: 0 2rem;
+      grid-template-columns: repeat(4, 1fr);
       span {
         margin-bottom: 0.5rem !important;
+        text-align: center;
+        padding: 0 0.5rem !important;
       }
     }
     &--detail {
@@ -182,19 +186,5 @@
   }
   .swiper-wrapper {
     gap: 4rem !important;
-  }
-}
-
-@media screen and (max-width: 1050px) {
-  .header--section {
-    // margin-top: 8rem !important;
-  }
-}
-
-@media screen and (max-width: 1300px) {
-  #Trending {
-    h3 {
-      // margin: 0 1rem !important;
-    }
   }
 }

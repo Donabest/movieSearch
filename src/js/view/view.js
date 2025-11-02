@@ -5,6 +5,7 @@ const header = document.getElementById('main--header');
 const errMessage = document.querySelector('.error-message');
 
 class View {
+  _data;
   constructor() {
     helper.hamburgerMenu.addEventListener('click', this.toggle.bind(this));
     helper.cancelMenu.addEventListener('click', this.toggle.bind(this));
@@ -27,6 +28,16 @@ class View {
     helper.bookmarkDisplay.classList.toggle('active');
   }
 
+  update(data) {
+    this._data = data;
+
+    const markup = this.generateSearchMarkup(data);
+    const newDom = document.createRange().createContextualFragment(markup);
+    const newElement = newDom.querySelectorAll('*');
+    // const curElement=
+    console.log(newElement);
+    console.log(data);
+  }
   modalEvent() {
     helper.modalDetails.addEventListener('click', function (e) {
       const cancelbtn = e.target.closest('.fa-xmark');
@@ -81,7 +92,7 @@ class View {
   }
 
   renderSuggestionList(data) {
-    const results = data.results.splice(0, 5);
+    const results = data.splice(0, 5);
     helper.suggestionList.innerHTML = results
       .map(suggestion => {
         return `<li  class="sugges--list" data-sugges="${
@@ -113,7 +124,7 @@ class View {
     });
   }
 
-  generateSectionMarkup(data, type) {
+  generateSectionMarkup(data) {
     header.style.background = `linear-gradient(
       to top,
       rgba(0, 0, 0, 0.9) 0,
@@ -142,7 +153,7 @@ class View {
             </button>
             <button class="btn btn-details " data-detail="${
               data[1].id
-            } " data-type="${type || 'movie'}">
+            } " data-type="${data[1].type}">
               Details <i class="fa-solid fa-angle-right"></i>
             </button>
           </div>`;
@@ -169,7 +180,7 @@ class View {
   }
 
   generateSearchMarkup(data) {
-    const html = data.results
+    const html = data
       .map(data => {
         return ` 
          <div class="search-view-card">
@@ -177,7 +188,9 @@ class View {
               data.media_type
             }" data-id="${data.id}">
               <img src="${
-                POST_URL + data.poster_path || POST_URL + data.backdrop_path
+                POST_URL + data.poster_path ||
+                POST_URL + data.backdrop_path ||
+                POST_URL + data.profile_path
               }" alt="" />
             </div>
             <div class="display">
@@ -280,6 +293,16 @@ class View {
           <p><i class="fa-solid fa-ban"></i>${message}</p>
         </div>
       </div>
+    `;
+    helper.searchDisplay.classList.toggle('active');
+  }
+  suggesMessage() {
+    helper.suggestionList.innerHTML = `
+      <li>
+         <div class="msg">
+            <p>No Results Found</p>
+        </div>
+      </li>
     `;
   }
 }

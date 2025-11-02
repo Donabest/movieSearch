@@ -57,7 +57,7 @@ class bookmarksView {
               }" />
               <span class="bookmarks-content" data-id="${bookmark.id}">${
             bookmark.title || bookmark.name
-          }  </span>
+          }</span>
             </div>
             <span class="bookmarks-icon" data-id="${bookmark.id}"
               ><i class="fa-${
@@ -73,7 +73,6 @@ class bookmarksView {
 
   renderMessage() {
     this._parentElement.forEach(parentEl => {
-      parentEl.innerHTML = '';
       parentEl.innerHTML = `<li class="message">
         <span>No BookMark yet</span>
       </li>`;

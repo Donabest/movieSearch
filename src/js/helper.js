@@ -23,20 +23,6 @@ export const runtime = function (runtime) {
   return `${hour}h : ${min}m`;
 };
 export function closeOnClick() {
-  // document.addEventListener('keydown', e => {
-  //   if (
-  //     e.key === 'Escape' ||
-  //     (e.key === 'Enter' && searchDisplay.classList.contains('active'))
-  //   ) {
-  //     searchInputtoggle();
-  //   }
-  //   if (
-  //     e.key === 'Escape' ||
-  //     (e.key === 'Enter' && bookmarkDisplay.classList.contains('active'))
-  //   ) {
-  //     bookmarkIcontoggle();
-  //   }
-  // });
   document.addEventListener('click', e => {
     if (
       searchDisplay.classList.contains('active') &&
@@ -57,6 +43,4 @@ export function closeOnClick() {
       errMessage.classList.toggle('hidden');
     }
   });
-
-  console.log(errMessage);
 }

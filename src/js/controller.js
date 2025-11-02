@@ -12,10 +12,17 @@ async function controlSuggestion(input) {
   try {
     await model.getMovieData(input);
 
-    view.renderSuggestionList(model.state.search);
+    //Remove the Results with no background/error and undefined
+    // model.state.search.results = model.cleanSearchResults(
+    //   model.state.search.results
+    // );
+
+    if (model.state.search.results.length === 0) throw err;
+
+    view.renderSuggestionList(model.state.search.results);
   } catch (err) {
-    view.renderMessage('Search Result Not Found');
-    console.error(err);
+    view.suggesMessage();
+    console.log(err);
   }
 }
 
@@ -24,12 +31,10 @@ async function loadSectionUi(id, type) {
   try {
     await model.getMovieDetails(id, type);
 
-    view.generateSectionMarkup(model.state.details, type);
+    view.generateSectionMarkup(model.state.details);
   } catch (err) {
-    view.renderErrorMessage(
-      'Please Check Your Internet Connection or Try Again Later'
-    );
-    // console.error(`${err.message}`);
+    view.renderErrorMessage(err);
+    console.log(err);
   }
 }
 
@@ -43,7 +48,7 @@ async function controlTrending() {
     view.renderErrorMessage(
       'Please Check Your Internet Connection or Try Again Later'
     );
-    // console.error(err);
+    console.log(err);
   }
 }
 
@@ -57,29 +62,36 @@ async function controlModalDetails(id, type = 'movie') {
     view.renderErrorMessage(
       ' Please Check Your Internet Connection or Try Again Later'
     );
-    // console.error(err);
+    console.log(err);
   }
 }
 
 //control the bookmark in search result section
 function controlSearchResultsBookmark(id) {
-  model.toggle(id);
+  model.toggle(model.state.search.results, id);
 
   bookmarkView.generateMarkUp(model.state.bookmarks);
+  // model.state.search.results = model.cleanSearchResults(model.state.search.results);
 
-  view.generateSearchMarkup(model.state.search);
+  view.generateSearchMarkup(model.state.search.results);
+  // view.update(model.state.search.results);
 }
 
 //Control Bookmark Add and Remove
 function controlAddBookmarks() {
   model.toggleBookmark(model.state.details[1]);
+
   view.generateModalDetailsMarkup(model.state.details);
+
   bookmarkView.generateMarkUp(model.state.bookmarks);
 }
 
 //Control the Bookmark rendering when click
 async function controlBookmarkOnclick(id) {
-  await loadSectionUi(id);
+  const bookmark = model.state.bookmarks.find(b => b.id === +id);
+  if (!bookmark) return;
+  const type = bookmark.type || bookmark.media_type;
+  await loadSectionUi(id, type);
 }
 
 //Control the bookmark section
@@ -93,13 +105,13 @@ async function controlSearch(input) {
   try {
     await model.getMovieData(input);
 
-    model.removeNobackground();
+    // model.state.search.results = model.cleanSearchResults(
+    //   model.state.search.results
+    // );
 
-    if (model.state.search.results.length === 0) {
-      view.renderMessage('Search Result Not Found');
-    }
+    if (model.state.search.results.length === 0) throw err;
 
-    view.generateSearchMarkup(model.state.search);
+    view.generateSearchMarkup(model.state.search.results);
   } catch (err) {
     view.renderMessage('Search Result Not Found');
     console.log(err);
@@ -110,9 +122,9 @@ async function controlSearch(input) {
 function controlBookmarkSectionIcon(id) {
   //Delete bookmark
   model.DeleteBookmark(id);
+
   //render bookmark after delete
   bookmarkView.generateMarkUp(model.state.bookmarks);
-  if (model.state.bookmarks.length === 0) bookmarkView.renderMessage;
 }
 
 function init() {

@@ -33,10 +33,12 @@ export async function getMovieDetails(id, type = 'movie') {
     ]);
     const [data1, data2] = await Promise.all([res1.json(), res2.json()]);
     state.details = [data1, data2];
+    state.details[1].type = type;
+
     if (state.bookmarks.some(bookmark => bookmark.id === data2.id)) {
       state.details[1].bookmarked = true;
     } else state.details[1].bookmarked = false;
-
+    if (data1.success === false) throw new Error(`${data1.status_message}`);
     return data1, data2;
   } catch (err) {
     throw err;
@@ -50,6 +52,9 @@ export function toggleBookmark(movie) {
   const index = state.bookmarks.findIndex(el => el.id === movie.id);
 
   if (index === -1) {
+    if (!movie.type && state.details[1]?.type)
+      movie.type = state.details[1].type;
+
     state.bookmarks.push(movie);
     state.details[1].bookmarked = true;
   } else {
@@ -73,19 +78,37 @@ export function DeleteBookmark(id) {
   persistance();
 }
 
-export function toggle(id) {
-  const data = state.search.results.find(data => data.id === +id);
-  state.bookmarks.push(data);
-  data.bookmarked = true;
+export function toggle(movie, id) {
+  const cleanResult = cleanSearchResults(movie);
+  const data = cleanResult.find(data => data.id === +id);
+  const index = state.bookmarks.findIndex(el => el.id === data.id);
+
+  if (index === -1) {
+    state.bookmarks.push(data);
+
+    data.bookmarked = true;
+  } else {
+    state.bookmarks.splice(index, 1);
+    data.bookmarked = false;
+  }
+  console.log(index);
+  console.log(data);
+
+  if (data.id === id) data.bookmarked = !data.bookmarked;
+  // cleanResult.map(b => {
+  //   if (id === b.id) b.bookmarked = data.bookmarked;
+  // });
   persistance();
 }
 
-export function removeNobackground() {
-  state.noBack.push(...state.search.results);
-  state.noBack.filter(movie => {
-    const backdrop = movie.backdrop_path && movie.backdrop_path !== 'null';
-    const hasProfile = movie.profile_path && movie.profile_path !== 'null';
-    return backdrop || hasProfile;
+export function cleanSearchResults(data) {
+  if (!data && !Array.isArray(data)) return;
+  return data.filter(movie => {
+    return (
+      movie.backdrop_path &&
+      movie.poster_path &&
+      (movie.overview || movie.biography)
+    );
   });
 }
 
