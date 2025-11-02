@@ -102,6 +102,16 @@
       gap: 6rem !important;
     }
   }
+  .modal {
+    &--card {
+      max-width: 380px !important;
+      padding-bottom: 3rem !important;
+      h4 {
+        margin-top: -2rem;
+        font-size: 1.3rem !important;
+      }
+    }
+  }
 }
 
 @media (min-width: 200px) and (max-width: 399px) {
