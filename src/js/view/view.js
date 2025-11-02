@@ -182,8 +182,6 @@ class View {
   }
 
   generateSearchMarkup(data) {
-    helper.grid.innerHTML = '';
-    helper.grid.innerHTML = `<span class="spinner"><i class="fa-solid fa-spinner"></i></span>`;
     const html = data
       .map(data => {
         const date = new Date(
@@ -230,8 +228,6 @@ class View {
 
   generateModalDetailsMarkup(data) {
     helper.modal.classList.add('show');
-    helper.modalDetails.innerHTML = '';
-    helper.modalDetails.innerHTML = `<span class="spinner"><i class="fa-solid fa-spinner"></i></span>`;
     let duration, season;
     if (data[1].runtime) duration = helper.runtime(data[1].runtime);
     if (data[1].seasons) season = `${data[1].seasons.length} seasons`;
@@ -301,6 +297,7 @@ class View {
     `;
     helper.searchDisplay.classList.toggle('active');
   }
+
   suggesMessage() {
     helper.suggestionList.innerHTML = '';
     helper.suggestionList.innerHTML = `
@@ -310,6 +307,19 @@ class View {
         </div>
       </li>
     `;
+  }
+
+  renderSectionSpinner() {
+    helper.grid.innerHTML = '';
+    helper.grid.innerHTML = `<span class="spinner"><i class="fa-solid fa-spinner"></i></span>`;
+  }
+  renderSuggestionSpinner() {
+    helper.suggestionList.innerHTML = '';
+    helper.suggestionList.innerHTML = `<span class="spinner"><i class="fa-solid fa-spinner"></i></span>`;
+  }
+  renderDetailsSpinner() {
+    helper.modalDetails.innerHTML = '';
+    helper.modalDetails.innerHTML = `<span class="spinner"><i class="fa-solid fa-spinner"></i></span>`;
   }
 }
 export default new View();

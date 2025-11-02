@@ -10,6 +10,9 @@ import bookmarkView from './view/bookmarkView.js';
 //Control Suggestion input data and the list
 async function controlSuggestion(input) {
   try {
+    //Render Spinner
+    view.renderSuggestionSpinner();
+
     await model.getMovieData(input);
 
     //Remove the Results with no background/error and undefined
@@ -53,6 +56,9 @@ async function controlTrending() {
 //control movie modal details
 async function controlModalDetails(id, type = 'movie') {
   try {
+    //Render spinner
+    view.renderDetailsSpinner();
+
     await model.getMovieDetails(id, type);
 
     view.generateModalDetailsMarkup(model.state.details, type);
@@ -101,6 +107,9 @@ function controlRenderSectionBookmark() {
 //Control the Search Section
 async function controlSearch(input) {
   try {
+    //Render Spinner
+    view.renderSectionSpinner();
+
     await model.getMovieData(input);
 
     //Remove Unnecessary data results
