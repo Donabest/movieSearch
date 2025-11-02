@@ -303,6 +303,7 @@ class View {
     helper.searchDisplay.classList.toggle('active');
   }
   suggesMessage() {
+    helper.suggestionList.innerHTML = '';
     helper.suggestionList.innerHTML = `
       <li>
          <div class="msg">
